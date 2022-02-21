@@ -36,7 +36,7 @@ public class HotelResource {
     @GetMapping("/hotels/create")
     public ModelAndView createForm(@ModelAttribute Hotel hotel){
         log.debug("Web request to create hotel form");
-        return new ModelAndView("add-hotel","Hotel", hotel);
+        return new ModelAndView("add-hotel","hotel", new Hotel());
     }
 
     @PostMapping("/hotels")
@@ -44,6 +44,12 @@ public class HotelResource {
         log.debug("web request to create  hotel: {}",hotel);
         hotelService.save(hotel);
         return new  ModelAndView("redirect:/","hotel",hotel);
+    }
+
+    @GetMapping("_search/hotels")
+    public ModelAndView searchHotel(@RequestParam String searchText) {
+        log.debug("Web request to search Hotel");
+        return new ModelAndView("index", "hotels", hotelService.search(searchText));
     }
 
     @GetMapping("/hotels/update/{id}")
@@ -60,7 +66,4 @@ public class HotelResource {
         return  new ModelAndView("redirect:/");
 
     }
-
-
-
 }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -44,6 +45,12 @@ public class HotelServiceImpl  implements HotelService{
     public Optional<Hotel> findById(Long id) {
         log.debug("request to find hotel by id: {}",id);
         return hotelRepository.findById(id);
+    }
+
+    @Override
+    public List<Hotel> search(String searchText) {
+        log.debug("request to search Hotel");
+        return hotelRepository.search(searchText);
     }
 
     @Override
